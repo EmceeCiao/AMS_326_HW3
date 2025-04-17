@@ -62,29 +62,35 @@ num_tosses = 4444444
 
 results = monte_carlo_disc_toss(diameters, num_tosses)  
 print(results)
-
-# Extract the x values (diameters) 
 x = list(results.keys())
-y1 = [results[d][0] for d in x]  # Prob of crossing ≥1 line per key
-y2 = [results[d][1] for d in x]  # Prob of crossing ≥2 lines per key
-y3 = [results[d][2] for d in x]  # Prob of crossing ≥3 lines per key
-y4 = [results[d][3] for d in x]  # Prob of crossing ≥4 lines per key 
+y1 = [results[d][0] for d in x]  # ≥1 line
+y2 = [results[d][1] for d in x]  # ≥2 lines
+y3 = [results[d][2] for d in x]  # ≥3 lines
+y4 = [results[d][3] for d in x]  # ≥4 lines
 
-# Plotting
-plt.figure(figsize=(10, 6))
-plt.plot(x, y1, label="≥1 line", marker='o')
-plt.plot(x, y2, label="≥2 lines", marker='o')
-plt.plot(x, y3, label="≥3 lines", marker='o')
-plt.plot(x, y4, label="≥4 lines", marker='o')
+# Bar width and positioning
+bar_width = 0.2
+x_indices = np.arange(len(x))
 
-plt.title("Approximate Probability of Crossing Lines vs. Disc Diameter")
-plt.xlabel("Disc Diameter (d)")
-plt.ylabel("Probability")
-plt.grid(True)
-plt.legend()
+plt.figure(figsize=(14, 7))
+
+# Shifted bars for each group
+plt.bar(x_indices - 1.5 * bar_width, y1, width=bar_width, label="≥ 1 line")
+plt.bar(x_indices - 0.5 * bar_width, y2, width=bar_width, label="≥ 2 lines")
+plt.bar(x_indices + 0.5 * bar_width, y3, width=bar_width, label="≥ 3 lines")
+plt.bar(x_indices + 1.5 * bar_width, y4, width=bar_width, label="≥ 4 lines")
+
+# Aesthetics
+plt.title("Probability of Disc Crossing Lines vs Diameter", fontsize=18, weight='bold')
+plt.xlabel("Disc Diameter (d)", fontsize=14)
+plt.ylabel("Probability", fontsize=14)
+plt.xticks(x_indices, [f"{d:.1f}" for d in x], rotation=45, fontsize=12)
+plt.yticks(fontsize=12)
 plt.ylim(0, 1.05)
-plt.xticks(x, rotation=45)
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+plt.legend(title="Lines Crossed", fontsize=12, title_fontsize=13)
 plt.tight_layout()
+
 plt.show()
 
 

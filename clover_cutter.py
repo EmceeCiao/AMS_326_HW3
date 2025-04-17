@@ -114,7 +114,7 @@ def simulated_annealing_search(points, step, width, height, T_init, T_final, ite
     - Best
     """
     # Intial State/Guess
-    xc, yc, alpha = 0, 0, 0 
+    xc, yc, alpha = np.random.uniform(low = 0, high = 0.1), np.random.uniform(low=0, high = 0.1), np.random.uniform(low = 0, high = 0.01) 
     transformed_points = transformation(points, xc, yc, alpha) 
     mask = inside_rectangle(transformed_points, width, height) 
     current_score = np.sum(mask) 
